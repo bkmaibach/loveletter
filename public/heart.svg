@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true">
+  <defs>
+    <!-- Radial gradient for the wax body -->
+    <radialGradient id="wax" cx="45%" cy="40%" r="55%">
+      <stop offset="0%"  stop-color="#e84057"/>
+      <stop offset="55%" stop-color="#c0273c"/>
+      <stop offset="100%" stop-color="#8b1a2b"/>
+    </radialGradient>
+    <!-- Subtle highlight -->
+    <radialGradient id="shine" cx="38%" cy="32%" r="30%">
+      <stop offset="0%"  stop-color="#fff" stop-opacity=".32"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Inner shadow for the stamped area -->
+    <radialGradient id="stamp" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"  stop-color="#8b1a2b" stop-opacity="0"/>
+      <stop offset="75%" stop-color="#8b1a2b" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#8b1a2b" stop-opacity=".35"/>
+    </radialGradient>
+    <!-- Drop shadow filter -->
+    <filter id="ds" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="1.5" stdDeviation="1.8" flood-color="#3a0a12" flood-opacity=".45"/>
+    </filter>
+    <!-- Emboss effect for the heart -->
+    <filter id="emboss" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1" result="blur"/>
+      <feOffset in="blur" dx="-0.8" dy="-0.8" result="offLight"/>
+      <feOffset in="blur" dx="0.8" dy="0.8" result="offDark"/>
+      <feFlood flood-color="#f7bcc6" flood-opacity=".6" result="lightColor"/>
+      <feFlood flood-color="#5a0f1c" flood-opacity=".5" result="darkColor"/>
+      <feComposite in="lightColor" in2="offLight" operator="in" result="highlight"/>
+      <feComposite in="darkColor" in2="offDark" operator="in" result="shadow"/>
+      <feMerge>
+        <feMergeNode in="shadow"/>
+        <feMergeNode in="highlight"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Wax blob — irregular circle -->
+  <path d="M32 4
+    C38 3.5 44 5 48.5 8.5
+    C53 12 56.5 17 58 22
+    C59.5 27 60 33 58.5 38
+    C57 43 54 47.5 50 51
+    C46 54.5 41 57.5 36 59
+    C31 60.5 26 60 21.5 57.5
+    C17 55 13 51 10 46.5
+    C7 42 5.5 37 5 32
+    C4.5 27 5 22 7.5 17.5
+    C10 13 14 9 19 6.5
+    C24 4 28 4.5 32 4Z"
+    fill="url(#wax)" filter="url(#ds)"/>
+
+  <!-- Highlight sheen -->
+  <path d="M32 4
+    C38 3.5 44 5 48.5 8.5
+    C53 12 56.5 17 58 22
+    C59.5 27 60 33 58.5 38
+    C57 43 54 47.5 50 51
+    C46 54.5 41 57.5 36 59
+    C31 60.5 26 60 21.5 57.5
+    C17 55 13 51 10 46.5
+    C7 42 5.5 37 5 32
+    C4.5 27 5 22 7.5 17.5
+    C10 13 14 9 19 6.5
+    C24 4 28 4.5 32 4Z"
+    fill="url(#shine)"/>
+
+  <!-- Circular stamp rim -->
+  <circle cx="32" cy="32" r="19" fill="none" stroke="#a01e32" stroke-width="1.8" opacity=".45"/>
+  <circle cx="32" cy="32" r="19" fill="url(#stamp)"/>
+
+  <!-- Embossed heart -->
+  <path d="M32 44
+    C32 44 21 37 18.5 31.5
+    C16.5 27 18 23.5 21 22.5
+    C23.5 21.5 26 22.5 28 24.5
+    L32 28.5
+    L36 24.5
+    C38 22.5 40.5 21.5 43 22.5
+    C46 23.5 47.5 27 45.5 31.5
+    C43 37 32 44 32 44Z"
+    fill="#b52740" filter="url(#emboss)"/>
+</svg>

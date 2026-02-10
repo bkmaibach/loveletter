@@ -1,0 +1,447 @@
+:root {
+  --bg0: #fff7fb;
+  --bg1: #fde7f2;
+  --ink: #1f1b24;
+  --muted: rgba(31, 27, 36, 0.72);
+  --paper: #f5e6c8;
+  --paperLight: #faf0dc;
+  --paperDark: #dcc9a3;
+  --paperEdge: rgba(101, 67, 33, 0.3);
+  --letterInk: #3b2210;
+  --accent: #e84a8a;
+  --accent2: #ff7aa6;
+  --shadow: rgba(25, 15, 25, 0.18);
+  --shadowSoft: rgba(25, 15, 25, 0.08);
+
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Arial,
+    sans-serif;
+  line-height: 1.6;
+  font-weight: 450;
+  color: var(--ink);
+  color-scheme: light;
+
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg0: #120812;
+    --bg1: #1b0b1b;
+    --ink: #f7eef7;
+    --muted: rgba(247, 238, 247, 0.75);
+    --paper: #c4a87a;
+    --paperLight: #d4bb90;
+    --paperDark: #a8905e;
+    --paperEdge: rgba(80, 50, 20, 0.45);
+    --letterInk: #2a1808;
+    --shadow: rgba(0, 0, 0, 0.42);
+    --shadowSoft: rgba(0, 0, 0, 0.24);
+    color-scheme: dark;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: transparent;
+}
+
+#app {
+  min-height: 100%;
+}
+
+.page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(1200px 600px at 20% 20%, var(--bg1), transparent 60%),
+    radial-gradient(
+      1000px 700px at 80% 30%,
+      rgba(232, 74, 138, 0.14),
+      transparent 55%
+    ),
+    linear-gradient(160deg, var(--bg0), var(--bg1));
+}
+
+.stage {
+  width: min(920px, 100%);
+  display: grid;
+  justify-items: center;
+}
+
+/* ---------- Scene ---------- */
+
+.scene {
+  position: relative;
+  width: min(680px, 94vw);
+  height: 820px;
+  display: grid;
+  place-items: center;
+}
+
+/* ---------- Letter ---------- */
+
+.letter {
+  position: absolute;
+  left: 50%;
+  bottom: 260px;
+  transform: translateX(-50%) translateY(180px) scale(0.985);
+  width: min(640px, 92vw);
+  opacity: 0;
+  pointer-events: none;
+  filter: drop-shadow(0 22px 35px var(--shadowSoft));
+  transition:
+    transform 900ms cubic-bezier(0.2, 0.95, 0.25, 1),
+    opacity 700ms ease;
+  transition-delay: 150ms;
+}
+
+.letter__paper {
+  /* Aged parchment look */
+  background:
+    radial-gradient(
+      ellipse at 20% 10%,
+      rgba(255, 255, 255, 0.15),
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 80% 90%,
+      rgba(120, 80, 30, 0.1),
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 50% 50%,
+      var(--paperLight),
+      var(--paper),
+      var(--paperDark)
+    );
+  border: 2px solid var(--paperEdge);
+  border-radius: 6px;
+  padding: 56px 44px 44px;
+  box-shadow:
+    0 2px 8px rgba(101, 67, 33, 0.18),
+    0 12px 28px var(--shadowSoft),
+    inset 0 0 60px rgba(101, 67, 33, 0.06);
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+}
+
+/* Rough parchment edge effect */
+.letter__paper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 40px,
+    rgba(101, 67, 33, 0.03) 40px,
+    rgba(101, 67, 33, 0.03) 41px
+  );
+  pointer-events: none;
+}
+
+/* ---------- Line-by-line text ---------- */
+
+.line {
+  margin: 0;
+  opacity: 0;
+  transition: opacity 400ms ease;
+  color: var(--letterInk);
+}
+
+.line--visible {
+  opacity: 1;
+}
+
+.line--greeting {
+  font-family: "Dancing Script", cursive;
+  font-size: clamp(2.4rem, 5.5vw, 3.5rem);
+  font-weight: 700;
+}
+
+.line--body {
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-size: clamp(1.55rem, 3.5vw, 2.1rem);
+  font-style: italic;
+  max-width: 48ch;
+  line-height: 1.7;
+  color: var(--letterInk);
+  opacity: 0;
+}
+
+.line--body.line--visible {
+  opacity: 0.85;
+}
+
+.line--signoff {
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-size: clamp(1.75rem, 3.8vw, 2.4rem);
+  font-weight: 700;
+  color: var(--letterInk);
+}
+
+.line--signature {
+  font-family: "Dancing Script", cursive;
+  font-size: clamp(2rem, 4.4vw, 2.8rem);
+  font-weight: 600;
+  color: var(--letterInk);
+  opacity: 0;
+}
+
+.line--signature.line--visible {
+  opacity: 0.8;
+}
+
+/* ---------- Action bars ---------- */
+
+.actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 32px;
+  width: 100%;
+}
+
+.actions[hidden] {
+  display: none;
+}
+
+.btn {
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 14px 22px;
+  font: inherit;
+  font-size: 1.15rem;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: white;
+  box-shadow: 0 10px 20px var(--shadowSoft);
+  transition:
+    transform 120ms ease,
+    box-shadow 200ms ease,
+    opacity 200ms ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 26px var(--shadowSoft);
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: 0 10px 20px var(--shadowSoft);
+}
+
+.btn:focus-visible,
+.envelope:focus-visible {
+  outline: 3px solid rgba(232, 74, 138, 0.55);
+  outline-offset: 4px;
+}
+
+.btn--big {
+  padding: 18px 52px;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(1.2rem, 2.8vw, 1.6rem);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--paperEdge);
+  box-shadow: none;
+}
+
+.btn--ghost:hover {
+  background: rgba(232, 74, 138, 0.08);
+  transform: none;
+}
+
+/* ---------- Envelope ---------- */
+
+@keyframes envelope-enter {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-100vh);
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.envelope {
+  position: absolute;
+  left: 50%;
+  bottom: 100px;
+  transform: translateX(-50%);
+  width: min(600px, 90vw);
+  height: 370px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  perspective: 900px;
+  -webkit-tap-highlight-color: transparent;
+  animation: envelope-enter 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.envelope__shadow {
+  position: absolute;
+  inset: auto 30px 8px 30px;
+  height: 34px;
+  background: radial-gradient(closest-side, var(--shadow), transparent);
+  filter: blur(2px);
+  opacity: 0.55;
+}
+
+.envelope__back {
+  position: absolute;
+  inset: 36px 0 0 0;
+  border-radius: 22px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.38),
+    rgba(255, 255, 255, 0.08)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 16px 30px var(--shadowSoft);
+}
+
+.envelope__front {
+  position: absolute;
+  inset: 36px 0 0 0;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.02)
+  );
+}
+
+.envelope__front::before,
+.envelope__front::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(
+    from 90deg at 50% 60%,
+    rgba(232, 74, 138, 0),
+    rgba(232, 74, 138, 0.16),
+    rgba(232, 74, 138, 0)
+  );
+  opacity: 0.8;
+}
+
+.envelope__front::after {
+  transform: rotate(180deg);
+  opacity: 0.45;
+}
+
+.envelope__flap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 36px;
+  height: 220px;
+  transform-origin: top center;
+  transform: rotateX(0deg);
+  border-top-left-radius: 22px;
+  border-top-right-radius: 22px;
+  background: linear-gradient(
+    180deg,
+    rgba(232, 74, 138, 0.22),
+    rgba(255, 255, 255, 0.05)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transition: transform 780ms cubic-bezier(0.2, 0.9, 0.2, 1);
+  backface-visibility: hidden;
+}
+
+/* ---------- Big red wax seal ---------- */
+
+.envelope__seal {
+  position: absolute;
+  left: 50%;
+  top: 180px;
+  width: 110px;
+  height: 110px;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: grid;
+  place-items: center;
+}
+
+.seal__img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: drop-shadow(0 4px 12px rgba(127, 29, 29, 0.45))
+    drop-shadow(0 14px 28px rgba(127, 29, 29, 0.2));
+}
+
+/* ---------- State transitions ---------- */
+
+.scene[data-state="opening"] .envelope__flap,
+.scene[data-state="open"] .envelope__flap {
+  transform: rotateX(-175deg);
+}
+
+.scene[data-state="open"] .letter {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(-60px) scale(1);
+  transition-delay: 0ms;
+}
+
+.scene[data-state="opening"] .letter {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0px) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .envelope,
+  .letter,
+  .envelope__flap,
+  .btn,
+  .line {
+    transition: none !important;
+    animation: none !important;
+  }
+}
