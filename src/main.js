@@ -52,7 +52,7 @@ function render() {
             <span class="envelope__flap" aria-hidden="true"></span>
             <span class="envelope__front" aria-hidden="true"></span>
             <span class="envelope__seal" aria-hidden="true">
-              <img class="seal__img" src="/heart.svg" alt="" />
+              <img class="seal__img" src="./heart.svg" alt="" />
             </span>
           </button>
 
