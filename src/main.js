@@ -52,7 +52,7 @@ function render() {
             <span class="envelope__flap" aria-hidden="true"></span>
             <span class="envelope__front" aria-hidden="true"></span>
             <span class="envelope__seal" aria-hidden="true">
-              <img class="seal__img" src="./heart.svg" alt="" />
+              <img class="seal__img" src="/heart.svg" alt="" />
             </span>
           </button>
 
@@ -87,7 +87,7 @@ function setup() {
     window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  const OPEN_MS = reduceMotion ? 0 : 1150;
+  const OPEN_MS = reduceMotion ? 0 : 300;
 
   let currentLine = -1;
 
